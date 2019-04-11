@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="names">
+ <!--
+ 마이바티스의 파라미터 매개변수 표시   #{변수명}
+  
+       ※ 만약 시작태그와 끝태그 안에  제한된 문자(예: < 또는  & )를 사용하려면
+     CDATA섹션을 사용하면 됨. 
+     
+       <![CDATA[        
+             
+                 내용 데이터 기술   (MyBatis의 경우 SQL문)
+              
+                       ]]>  
+                       
+            ※ 각 태그에는 속성 parameterType,resultType을 기술할 수 있음
+       parameterType속성은   매개변수를
+       resultType속성은 리턴자료형을 의미함.
+       
+       예)  parameterType="String"    ==> insert,delete,update,select
+                                      (생략가능, 생략추천)
+                                      
+        resultType="int"          ==> select (반드시 기술)                        
+        resultType="PersonBean"
+         
+       ==> Type의 정보는 pdf파일 p12~p13 참조   
+   
+-->
+<insert id="insert" parameterType="String"> insert into names (name) values (#{name}) </insert>
+<delete id="delete"> delete from names where name=#{delName} </delete>
+<update id="update">
+ <!--
+ 
+          #{newName} 은   BothName의  getNewName() 호출 ==> Beans의 경우
+                        또는
+          #{newName} 은   map.get("newName") 호출   ==> Map의 경우              
+     
+      
+-->
+update names set name=#{newName} where name=#{oldName}
+</update>
+<select id="selectAll" resultType="string"> select name from names </select>
+</mapper>
+<!--  mapper/namesMapper.xml  -->
